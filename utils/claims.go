@@ -134,6 +134,20 @@ func GetUserName(c *gin.Context) string {
 	}
 }
 
+// GetNickName 从Gin的Context中获取从jwt解析出来的昵称
+func GetNickName(c *gin.Context) string {
+	if claims, exists := c.Get("claims"); !exists {
+		if cl, err := GetClaims(c); err != nil {
+			return ""
+		} else {
+			return cl.NickName
+		}
+	} else {
+		waitUse := claims.(*systemReq.CustomClaims)
+		return waitUse.NickName
+	}
+}
+
 func LoginToken(user system.Login) (token string, claims systemReq.CustomClaims, err error) {
 	j := NewJWT()
 	claims = j.CreateClaims(systemReq.BaseClaims{

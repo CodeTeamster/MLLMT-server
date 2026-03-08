@@ -5,9 +5,11 @@ import "github.com/flipped-aurora/gin-vue-admin/server/service"
 type ApiGroup struct {
 	BizDatasetApi
 	BizSampleApi
+	BizAlgorithmApi
 }
 
 var (
-	datasetService = service.ServiceGroupApp.BizServiceGroup.BizDatasetService
-	sampleService  = service.ServiceGroupApp.BizServiceGroup.BizSampleService
+	datasetService   = service.ServiceGroupApp.BizServiceGroup.BizDatasetService
+	sampleService    = service.ServiceGroupApp.BizServiceGroup.BizSampleService
+	algorithmService = service.ServiceGroupApp.BizServiceGroup.BizAlgorithmService
 )
