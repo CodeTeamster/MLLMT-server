@@ -4,9 +4,9 @@ package global
 // 目前只有Version正式使用 其余为预留
 const (
 	// Version 当前版本号
-	Version = "v2.8.9"
+	Version = "v1.0.0"
 	// AppName 应用名称
-	AppName = "Gin-Vue-Admin"
+	AppName = "MLLMT-server"
 	// Description 应用描述
-	Description = "使用gin+vue进行极速开发的全栈开发基础平台"
+	Description = "Multi-modal Large Language Model Turbo"
 )

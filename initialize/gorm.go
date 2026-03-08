@@ -42,7 +42,6 @@ func RegisterTables() {
 
 	db := global.GVA_DB
 	err := db.AutoMigrate(
-
 		system.SysApi{},
 		system.SysIgnoreApi{},
 		system.SysUser{},
