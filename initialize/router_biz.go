@@ -18,5 +18,6 @@ func initBizRouter(routers ...*gin.RouterGroup) {
 		bizRouter.InitBizDatasetRouter(privateGroup, publicGroup)
 		bizRouter.InitBizSampleRouter(privateGroup, publicGroup)
 		bizRouter.InitBizAlgorithmRouter(privateGroup, publicGroup)
+		bizRouter.InitBizModelRouter(privateGroup, publicGroup)
 	}
 }

@@ -4,4 +4,5 @@ type ServiceGroup struct {
 	BizDatasetService
 	BizSampleService
 	BizAlgorithmService
+	BizModelService
 }

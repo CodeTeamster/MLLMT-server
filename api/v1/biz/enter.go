@@ -6,10 +6,12 @@ type ApiGroup struct {
 	BizDatasetApi
 	BizSampleApi
 	BizAlgorithmApi
+	BizModelApi
 }
 
 var (
 	datasetService   = service.ServiceGroupApp.BizServiceGroup.BizDatasetService
 	sampleService    = service.ServiceGroupApp.BizServiceGroup.BizSampleService
 	algorithmService = service.ServiceGroupApp.BizServiceGroup.BizAlgorithmService
+	modelService     = service.ServiceGroupApp.BizServiceGroup.BizModelService
 )
