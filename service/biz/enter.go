@@ -1,3 +1,6 @@
 package biz
 
-type ServiceGroup struct{ BizDatasetService }
+type ServiceGroup struct {
+	BizDatasetService
+	BizSampleService
+}

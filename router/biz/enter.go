@@ -2,6 +2,12 @@ package biz
 
 import api "github.com/flipped-aurora/gin-vue-admin/server/api/v1"
 
-type RouterGroup struct{ BizDatasetRouter }
+type RouterGroup struct {
+	BizDatasetRouter
+	BizSampleRouter
+}
 
-var datasetApi = api.ApiGroupApp.BizApiGroup.BizDatasetApi
+var (
+	datasetApi = api.ApiGroupApp.BizApiGroup.BizDatasetApi
+	sampleApi  = api.ApiGroupApp.BizApiGroup.BizSampleApi
+)
