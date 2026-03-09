@@ -3,6 +3,10 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"strings"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -28,4 +32,26 @@ func MD5V(str []byte, b ...byte) string {
 	h := md5.New()
 	h.Write(str)
 	return hex.EncodeToString(h.Sum(b))
+}
+
+func MD5Encode(args ...any) string {
+	if len(args) == 0 {
+		sum := md5.Sum([]byte{})
+		return hex.EncodeToString(sum[:])
+	}
+
+	if b, err := json.Marshal(args); err == nil {
+		sum := md5.Sum(b)
+		return hex.EncodeToString(sum[:])
+	}
+
+	var s strings.Builder
+	for i, a := range args {
+		if i > 0 {
+			s.WriteString("|")
+		}
+		fmt.Fprintf(&s, "%v", a)
+	}
+	sum := md5.Sum([]byte(s.String()))
+	return hex.EncodeToString(sum[:])
 }

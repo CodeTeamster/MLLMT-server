@@ -5,4 +5,5 @@ type ServiceGroup struct {
 	BizSampleService
 	BizAlgorithmService
 	BizModelService
+	BizInferenceTaskService
 }
