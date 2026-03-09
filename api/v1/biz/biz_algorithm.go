@@ -3,7 +3,6 @@ package biz
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/biz"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
 	bizReq "github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -19,14 +18,14 @@ type BizAlgorithmApi struct{}
 // @Security ApiKeyAuth
 // @Accept application/json
 // @Produce application/json
-// @Param data body biz.BizAlgorithm true "创建推理加速算法"
+// @Param data body bizReq.BizAlgorithmCreate true "创建推理加速算法"
 // @Success 200 {object} response.Response{msg=string} "创建成功"
 // @Router /algorithm/createBizAlgorithm [post]
 func (algorithmApi *BizAlgorithmApi) CreateBizAlgorithm(c *gin.Context) {
 	// 创建业务用Context
 	ctx := c.Request.Context()
 
-	var algorithmReq request.BizAlgorithmCreate
+	var algorithmReq bizReq.BizAlgorithmCreate
 	err := c.ShouldBindJSON(&algorithmReq)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

@@ -3,7 +3,6 @@ package biz
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/biz"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
 	bizReq "github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -19,14 +18,14 @@ type BizModelApi struct{}
 // @Security ApiKeyAuth
 // @Accept application/json
 // @Produce application/json
-// @Param data body biz.BizModel true "创建模型管理"
+// @Param data body bizReq.BizModelCreate true "创建模型管理"
 // @Success 200 {object} response.Response{msg=string} "创建成功"
 // @Router /model/createBizModel [post]
 func (modelApi *BizModelApi) CreateBizModel(c *gin.Context) {
 	// 创建业务用Context
 	ctx := c.Request.Context()
 
-	var modelReq request.BizModelCreate
+	var modelReq bizReq.BizModelCreate
 	err := c.ShouldBindJSON(&modelReq)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

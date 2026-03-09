@@ -3,7 +3,6 @@ package biz
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/biz"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
 	bizReq "github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -19,14 +18,14 @@ type BizDatasetApi struct{}
 // @Security ApiKeyAuth
 // @Accept application/json
 // @Produce application/json
-// @Param data body biz.BizDataset true "创建数据集管理"
+// @Param data body bizReq.BizDatasetCreate true "创建数据集管理"
 // @Success 200 {object} response.Response{msg=string} "创建成功"
 // @Router /dataset/createBizDataset [post]
 func (datasetApi *BizDatasetApi) CreateBizDataset(c *gin.Context) {
 	// 创建业务用Context
 	ctx := c.Request.Context()
 
-	var datasetReq request.BizDatasetCreate
+	var datasetReq bizReq.BizDatasetCreate
 	err := c.ShouldBindJSON(&datasetReq)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -100,14 +99,14 @@ func (datasetApi *BizDatasetApi) DeleteBizDatasetByIds(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Accept application/json
 // @Produce application/json
-// @Param data body biz.BizDataset true "更新数据集管理"
+// @Param data body bizReq.BizDatasetUpdate true "更新数据集管理"
 // @Success 200 {object} response.Response{msg=string} "更新成功"
 // @Router /dataset/updateBizDataset [put]
 func (datasetApi *BizDatasetApi) UpdateBizDataset(c *gin.Context) {
 	// 从ctx获取标准context进行业务行为
 	ctx := c.Request.Context()
 
-	var datasetReq request.BizDatasetUpdate
+	var datasetReq bizReq.BizDatasetUpdate
 	err := c.ShouldBindJSON(&datasetReq)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
