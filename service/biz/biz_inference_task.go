@@ -21,16 +21,22 @@ func (inferenceTaskService *BizInferenceTaskService) CreateBizInferenceTask(ctx 
 // DeleteBizInferenceTask 删除推理任务记录记录
 // Author [yourname](https://github.com/yourname)
 func (inferenceTaskService *BizInferenceTaskService) DeleteBizInferenceTask(ctx context.Context, ID string) (err error) {
-	// TODO: 同时需要删除biz_inference_log中对应task_hash的记录
 	err = global.GVA_DB.Delete(&biz.BizInferenceTask{}, "task_hash = ?", ID).Error
+	if err != nil {
+		return err
+	}
+	err = global.GVA_DB.Delete(&biz.BizInferenceLog{}, "task_hash = ?", ID).Error
 	return err
 }
 
 // DeleteBizInferenceTaskByIds 批量删除推理任务记录记录
 // Author [yourname](https://github.com/yourname)
 func (inferenceTaskService *BizInferenceTaskService) DeleteBizInferenceTaskByIds(ctx context.Context, IDs []string) (err error) {
-	// TODO: 同时需要删除biz_inference_log中对应task_hash的记录
 	err = global.GVA_DB.Delete(&[]biz.BizInferenceTask{}, "task_hash in ?", IDs).Error
+	if err != nil {
+		return err
+	}
+	err = global.GVA_DB.Delete(&[]biz.BizInferenceLog{}, "task_hash in ?", IDs).Error
 	return err
 }
 

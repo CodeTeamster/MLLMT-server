@@ -8,6 +8,7 @@ type RouterGroup struct {
 	BizAlgorithmRouter
 	BizModelRouter
 	BizInferenceTaskRouter
+	BizInferenceLogRouter
 }
 
 var (
@@ -16,4 +17,5 @@ var (
 	algorithmApi     = api.ApiGroupApp.BizApiGroup.BizAlgorithmApi
 	modelApi         = api.ApiGroupApp.BizApiGroup.BizModelApi
 	inferenceTaskApi = api.ApiGroupApp.BizApiGroup.BizInferenceTaskApi
+	inferenceLogApi  = api.ApiGroupApp.BizApiGroup.BizInferenceLogApi
 )

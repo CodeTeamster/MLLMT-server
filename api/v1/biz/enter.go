@@ -8,6 +8,7 @@ type ApiGroup struct {
 	BizAlgorithmApi
 	BizModelApi
 	BizInferenceTaskApi
+	BizInferenceLogApi
 }
 
 var (
@@ -16,4 +17,5 @@ var (
 	algorithmService     = service.ServiceGroupApp.BizServiceGroup.BizAlgorithmService
 	modelService         = service.ServiceGroupApp.BizServiceGroup.BizModelService
 	inferenceTaskService = service.ServiceGroupApp.BizServiceGroup.BizInferenceTaskService
+	inferenceLogService  = service.ServiceGroupApp.BizServiceGroup.BizInferenceLogService
 )

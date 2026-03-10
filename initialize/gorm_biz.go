@@ -7,7 +7,7 @@ import (
 
 func bizModel() error {
 	db := global.GVA_DB
-	err := db.AutoMigrate(biz.BizDataset{}, biz.BizSample{}, biz.BizAlgorithm{}, biz.BizModel{}, biz.BizInferenceTask{})
+	err := db.AutoMigrate(biz.BizDataset{}, biz.BizSample{}, biz.BizAlgorithm{}, biz.BizModel{}, biz.BizInferenceTask{}, biz.BizInferenceLog{})
 	if err != nil {
 		return err
 	}
