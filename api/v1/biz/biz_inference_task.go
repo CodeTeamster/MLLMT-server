@@ -14,6 +14,55 @@ import (
 
 type BizInferenceTaskApi struct{}
 
+// RunBizInferenceTask 执行推理任务
+// @Tags BizInferenceTask
+// @Summary 执行推理任务
+// @Security ApiKeyAuth
+// @Accept application/json
+// @Produce application/json
+// @Param data body bizReq.BizInferenceTaskRun true "执行推理任务"
+// @Success 200 {object} response.Response{msg=string} "创建成功"
+// @Router /inferenceTask/runBizInferenceTask [post]
+func (inferenceTaskApi *BizInferenceTaskApi) RunBizInferenceTask(c *gin.Context) {
+	// 创建业务用Context
+	ctx := c.Request.Context()
+
+	var inferenceTaskReq bizReq.BizInferenceTaskRun
+	err := c.ShouldBindJSON(&inferenceTaskReq)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	operatorName := utils.GetUserName(c)
+	operatorId := int64(utils.GetUserID(c))
+	taskhash := utils.MD5Encode(
+		*inferenceTaskReq.ModelName,
+		operatorName,
+		operatorId,
+		time.Now().UnixNano(),
+	)
+
+	inferenceTask := biz.BizRunInferenceTask{
+		TaskInnerSeq: inferenceTaskReq.TaskInnerSeq,
+		ModelName:    inferenceTaskReq.ModelName,
+		ModelId:      inferenceTaskReq.ModelId,
+		AlgorithmIds: inferenceTaskReq.AlgorithmIds,
+		ModelType:    inferenceTaskReq.ModelType,
+		DatasetId:    inferenceTaskReq.DatasetId,
+		SampleId:     inferenceTaskReq.SampleId,
+		TaskHash:     &taskhash,
+	}
+
+	logs, err := inferenceTaskService.RunBizInferenceTask(ctx, &inferenceTask)
+	if err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败:"+err.Error(), c)
+		return
+	}
+	response.OkWithData(logs, c)
+}
+
 // CreateBizInferenceTask 创建推理任务记录
 // @Tags BizInferenceTask
 // @Summary 创建推理任务记录
@@ -163,6 +212,35 @@ func (inferenceTaskApi *BizInferenceTaskApi) FindBizInferenceTask(c *gin.Context
 		return
 	}
 	response.OkWithData(reinferenceTask, c)
+}
+
+// GetBizInferenceCompleteRecord 获取推理任务详情
+// @Tags BizInferenceTask
+// @Summary 获取推理任务详情
+// @Security ApiKeyAuth
+// @Accept application/json
+// @Produce application/json
+// @Param data query bizReq.BizInferenceCompleteRecord true "获取推理任务详情"
+// @Success 200 {object} response.Response{data=response.PageResult,msg=string} "获取成功"
+// @Router /inferenceTask/getBizInferenceCompleteRecord [get]
+func (inferenceTaskApi *BizInferenceTaskApi) GetBizInferenceCompleteRecord(c *gin.Context) {
+	// 创建业务用Context
+	ctx := c.Request.Context()
+
+	var inferenceCompleteRecord bizReq.BizInferenceCompleteRecord
+	err := c.ShouldBindQuery(&inferenceCompleteRecord)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	list, err := inferenceTaskService.GetBizInferenceCompleteRecord(ctx, inferenceCompleteRecord)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败:"+err.Error(), c)
+		return
+	}
+	response.OkWithData(list, c)
 }
 
 // GetBizInferenceTaskList 分页获取推理任务记录列表

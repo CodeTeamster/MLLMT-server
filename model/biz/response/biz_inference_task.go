@@ -3,6 +3,7 @@ package request
 import (
 	"time"
 
+	"github.com/flipped-aurora/gin-vue-admin/server/model/biz"
 	"gorm.io/gorm"
 )
 
@@ -21,4 +22,10 @@ type BizInferenceTaskSearch struct {
 	TaskHash      *string        `json:"taskHash" form:"taskHash" gorm:"comment:任务唯一编号;column:task_hash;" binding:"required"`                                  //任务唯一编号
 	OperatorName  *string        `json:"operatorName" form:"operatorName" gorm:"comment:执行人用户名;column:operator_name;" binding:"required"`                      //执行人用户名
 	OperatorId    *int64         `json:"operatorId" form:"operatorId" gorm:"comment:执行人Id;column:operator_id;" binding:"required"`                             //执行人Id
+}
+
+// 推理任务记录 结构体  BizInferenceTask
+type BizInferenceCompleteRecord struct {
+	InferenceLogs  [][]biz.BizInferenceLog `json:"inferenceLogs" form:"inferenceLogs"`
+	InferenceTasks []biz.BizInferenceTask  `json:"inferenceTasks" form:"inferenceTasks"` //推理任务记录
 }

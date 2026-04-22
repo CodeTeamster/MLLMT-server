@@ -23,6 +23,18 @@ type BizInferenceTask struct {
 	OperatorId        *int64   `json:"operatorId" form:"operatorId" gorm:"comment:执行人Id;column:operator_id;" binding:"required"`                             //执行人Id
 }
 
+// 执行推理任务结构体
+type BizRunInferenceTask struct {
+	TaskInnerSeq *int64  `json:"taskInnerSeq" form:"taskInnerSeq" binding:"required"` //任务内执行顺序
+	ModelName    *string `json:"modelName" form:"modelName" binding:"required"`       //模型名称
+	ModelId      *int64  `json:"modelId" form:"modelId" binding:"required"`           //模型Id
+	AlgorithmIds []int64 `json:"algorithmIds" form:"algorithmIds" binding:"required"` //算法Id
+	ModelType    *int64  `json:"modelType" form:"modelType" binding:"required"`       //模型类型
+	DatasetId    *int64  `json:"datasetId" form:"datasetId" binding:"required"`       //数据集Id
+	SampleId     *int64  `json:"sampleId" form:"sampleId" binding:"required"`         //样本Id
+	TaskHash     *string `json:"taskHash" form:"taskHash" binding:"required"`         //任务唯一编号
+}
+
 // TableName 推理任务记录 BizInferenceTask自定义表名 biz_inference_task
 func (BizInferenceTask) TableName() string {
 	return "biz_inference_task"

@@ -12,14 +12,14 @@ func (s *BizInferenceTaskRouter) InitBizInferenceTaskRouter(Router *gin.RouterGr
 	inferenceTaskRouter := Router.Group("inferenceTask").Use(middleware.OperationRecord())
 	inferenceTaskRouterWithoutRecord := Router.Group("inferenceTask")
 	{
-		// TODO: runBizInferenceTask
+		inferenceTaskRouter.POST("runBizInferenceTask", inferenceTaskApi.RunBizInferenceTask)                   // 运行推理任务记录
 		inferenceTaskRouter.POST("createBizInferenceTask", inferenceTaskApi.CreateBizInferenceTask)             // 新建推理任务记录
 		inferenceTaskRouter.DELETE("deleteBizInferenceTask", inferenceTaskApi.DeleteBizInferenceTask)           // 删除推理任务记录
 		inferenceTaskRouter.DELETE("deleteBizInferenceTaskByIds", inferenceTaskApi.DeleteBizInferenceTaskByIds) // 批量删除推理任务记录
 	}
 	{
-		// TODO: getBizInferenceCompleteRecord
-		inferenceTaskRouterWithoutRecord.GET("getBizInferenceTaskList", inferenceTaskApi.GetBizInferenceTaskList) // 获取推理任务记录列表
-		inferenceTaskRouterWithoutRecord.GET("getBizInferenceRank", inferenceTaskApi.GetBizInferenceRank)         // 获取推理性能榜单
+		inferenceTaskRouterWithoutRecord.GET("getBizInferenceCompleteRecord", inferenceTaskApi.GetBizInferenceCompleteRecord) // 获取推理任务详情
+		inferenceTaskRouterWithoutRecord.GET("getBizInferenceTaskList", inferenceTaskApi.GetBizInferenceTaskList)             // 获取推理任务记录列表
+		inferenceTaskRouterWithoutRecord.GET("getBizInferenceRank", inferenceTaskApi.GetBizInferenceRank)                     // 获取推理性能榜单
 	}
 }

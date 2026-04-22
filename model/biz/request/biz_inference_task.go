@@ -12,6 +12,21 @@ type BizInferenceTaskSearch struct {
 	OperatorId *int64
 }
 
+type BizInferenceCompleteRecord struct {
+	TaskHash     *string `json:"taskHash" form:"taskHash" binding:"required"` //任务编号
+	TaskInnerSeq *int64  `json:"taskInnerSeq" form:"taskInnerSeq"`            //任务内执行顺序
+}
+
+type BizInferenceTaskRun struct {
+	TaskInnerSeq *int64  `json:"taskInnerSeq" form:"taskInnerSeq" binding:"required"` //任务内执行顺序
+	ModelName    *string `json:"modelName" form:"modelName" binding:"required"`       //模型名称
+	ModelId      *int64  `json:"modelId" form:"modelId" binding:"required"`           //模型Id
+	AlgorithmIds []int64 `json:"algorithmIds" form:"algorithmIds" binding:"required"` //算法Id
+	ModelType    *int64  `json:"modelType" form:"modelType" binding:"required"`       //模型类型
+	DatasetId    *int64  `json:"datasetId" form:"datasetId" binding:"required"`       //数据集Id
+	SampleId     *int64  `json:"sampleId" form:"sampleId" binding:"required"`         //样本Id
+}
+
 type BizInferenceTaskCreate struct {
 	ModelName         *string  `json:"modelName" form:"modelName" binding:"required"`                 //模型名称
 	ModelId           *int64   `json:"modelId" form:"modelId" binding:"required"`                     //模型Id
